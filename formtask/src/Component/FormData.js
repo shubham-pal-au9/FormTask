@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./form.css";
 
 function FormData() {
@@ -17,8 +17,6 @@ function FormData() {
     const handleOnSubmit = (event) => {
         event.preventDefault()
         const objFormData = {}
-        /* console.log("CheckDataComing:",name,gender,date,salary,phoneno,adharno,
-        hindi,english,german,spanish) */
 
         const lanArray = [];
 
@@ -59,7 +57,7 @@ function FormData() {
 
     }
 
-    const languageChangeHindi = (languageData) => { 
+    const languageChangeHindi = (languageData) => {
         setHindi(!hindi)
     }
     const languageChangeEnglish = (languageData) => {
@@ -71,6 +69,7 @@ function FormData() {
     const languageChangeSpanish = (languageData) => {
         setSpanish(!spanish)
     }
+
     return (
         <form onSubmit={handleOnSubmit}>
             <div className="mainDiv">
@@ -98,9 +97,7 @@ function FormData() {
                         <option value="Male" >Male</option>
                         <option value="Female" >Female</option>
                     </select>
-
                 </div>
-
 
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
@@ -117,7 +114,6 @@ function FormData() {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Language known:</span>
                     </div>
-
                     <input type="checkbox" name="Hindi" value="Hindi" defaultChecked={localStorage.getItem('lanHindi') === "true" ? true : false}
                         onChange={(e) => languageChangeHindi(e.target.value)} />
                     <label> Hindi </label>
@@ -136,7 +132,7 @@ function FormData() {
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Salary expected:</span>
-                        {console.log("Sshshshsh:",salary)}
+                        {console.log("Sshshshsh:", salary)}
                     </div>
                     <input type="radio" name="salary" value="30" checked={salary === "30"}
                         onChange={(e) => setSalary(e.target.value)} />
