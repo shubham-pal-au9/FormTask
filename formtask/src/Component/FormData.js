@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./form.css";
 
+import * as moment from 'moment';
+
 function FormData() {
     const [name, setName] = useState(localStorage.getItem("nameData"));
     const [gender, setGender] = useState(localStorage.getItem("genderStore") === "Female" ? "Female" : "Male");
@@ -33,10 +35,12 @@ function FormData() {
             lanArray.push('Spanish')
         }
 
+        const getDate = moment(date).format('DD-MM-YYYY');
+
         objFormData.language = lanArray;
         objFormData.name = name;
         objFormData.gender = gender;
-        objFormData.date = date;
+        objFormData.date = getDate;
         objFormData.salary = salary;
         objFormData.phoneno = phoneno;
         objFormData.adharno = adharno;
