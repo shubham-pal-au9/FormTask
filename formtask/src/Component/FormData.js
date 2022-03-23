@@ -1,21 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./form.css";
 
 function FormData() {
     const [name, setName] = useState(localStorage.getItem("nameData"));
     const [gender, setGender] = useState(localStorage.getItem("genderStore") === "Female" ? "Female" : "Male");
-    const [date, setDate] = useState("");
-    const [language, setLanguage] = useState("");
-    const [salary, setSalary] = useState("");
+    const [date, setDate] = useState(localStorage.getItem("date"));
+    const [salary, setSalary] = useState(localStorage.getItem("salaryData") === "30" ? "30" : localStorage.getItem("salaryData") === "40" ? "40" : "50");
     const [phoneno, setPhoneno] = useState(localStorage.getItem("phoneno"));
     const [adharno, setAdharno] = useState(localStorage.getItem("adharno"));
 
-    const [hindi, setHindi] = useState(false);
-    const [english, setEnglish] = useState(false);
-    const [german, setGerman] = useState(false);
-    const [spanish, setSpanish] = useState(false);
-
-
+    const [hindi, setHindi] = useState(localStorage.getItem('lanHindi') === "true" ? true : localStorage.getItem('lanHindi') === null ? false : false);
+    const [english, setEnglish] = useState(localStorage.getItem('lanEnglish') === "true" ? true : localStorage.getItem('lanEnglish') === null ? false : false);
+    const [german, setGerman] = useState(localStorage.getItem('lanGerman') === "true" ? true : localStorage.getItem('lanGerman') === null ? false : false);
+    const [spanish, setSpanish] = useState(localStorage.getItem('lanSpanish') === "true" ? true : localStorage.getItem('lanSpanish') === null ? false : false);
 
     const handleOnSubmit = (event) => {
         event.preventDefault()
@@ -55,11 +52,14 @@ function FormData() {
         localStorage.setItem("phoneno", phoneno);
         localStorage.setItem("adharno", adharno);
 
+        localStorage.setItem("lanHindi", hindi);
         localStorage.setItem("lanEnglish", english);
+        localStorage.setItem("lanGerman", german);
+        localStorage.setItem("lanSpanish", spanish);
 
     }
 
-    const languageChangeHindi = (languageData) => {
+    const languageChangeHindi = (languageData) => { 
         setHindi(!hindi)
     }
     const languageChangeEnglish = (languageData) => {
@@ -74,14 +74,14 @@ function FormData() {
     return (
         <form onSubmit={handleOnSubmit}>
             <div className="mainDiv">
-                <h1 className="mainHeading">Employee Form</h1>
+                <h1 className="mainHeading">Employee Form
+                </h1>
                 <div className="namePerson">
-
                 </div>
 
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Enter your name</span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Enter your name:</span>
                     </div>
                     <input type="text"
                         class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
@@ -108,7 +108,7 @@ function FormData() {
                     </div>
                     <input
                         type="date"
-                        value={date}
+                        defaultValue={date}
                         onChange={(e) => setDate(e.target.value)}
                     />
                 </div>
@@ -118,16 +118,16 @@ function FormData() {
                         <span class="input-group-text" id="inputGroup-sizing-sm">Language known:</span>
                     </div>
 
-                    <input type="checkbox" name="Hindi" value="Hindi"
+                    <input type="checkbox" name="Hindi" value="Hindi" defaultChecked={localStorage.getItem('lanHindi') === "true" ? true : false}
                         onChange={(e) => languageChangeHindi(e.target.value)} />
                     <label> Hindi </label>
-                    <input type="checkbox" name="English" value="English"
+                    <input type="checkbox" name="English" value="English" defaultChecked={localStorage.getItem('lanEnglish') === "true" ? true : false}
                         onChange={(e) => languageChangeEnglish(e.target.value)} />
                     <label> English </label>
-                    <input type="checkbox" name="German" value="German"
+                    <input type="checkbox" name="German" value="German" defaultChecked={localStorage.getItem('lanGerman') === "true" ? true : false}
                         onChange={(e) => languageChangeGerman(e.target.value)} />
                     <label> German </label>
-                    <input type="checkbox" name="Spanish" value="Spanish"
+                    <input type="checkbox" name="Spanish" value="Spanish" defaultChecked={localStorage.getItem('lanSpanish') === "true" ? true : false}
                         onChange={(e) => languageChangeSpanish(e.target.value)} />
                     <label> Spanish </label>
                 </div>
@@ -136,14 +136,15 @@ function FormData() {
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Salary expected:</span>
+                        {console.log("Sshshshsh:",salary)}
                     </div>
-                    <input type="radio" name="salary" value="30"
+                    <input type="radio" name="salary" value="30" checked={salary === "30"}
                         onChange={(e) => setSalary(e.target.value)} />
                     <label >30 INR</label>
-                    <input type="radio" name="salary" value="40"
+                    <input type="radio" name="salary" value="40" checked={salary === "40"}
                         onChange={(e) => setSalary(e.target.value)} />
                     <label >40 INR</label>
-                    <input type="radio" name="salary" value="50"
+                    <input type="radio" name="salary" value="50" checked={salary === "50"}
                         onChange={(e) => setSalary(e.target.value)} />
                     <label >50 INR</label>
                 </div>
